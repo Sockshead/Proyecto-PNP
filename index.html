@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tienda de juegos</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+    <meta http-equiv="Content-Type" content="text/html ; charset=utf-8" />
+    <meta name="Autor" content="Julian Hernandez, Juan Camilo Posada">
+    <meta name="Nombre" content="Base De juegos">
+    <meta name="Descripcion" content="Base de datos de juegos">
+</head>
+
+<body>
+    <div id="Menu" class="DIV" style="visibility:visible">
+        <h2> Base de Datos de Juegos!</h2>
+        <br><button onclick="MostrarCosas('IDJugador');OcultarCosas('Menu')" class="BTNMenu"> Adiccionar un jugador</button><br>
+        <button onclick="MostrarCosas('InicioSesion');OcultarCosas('Menu')" class="BTNMenu"> Iniciar Sesion</button><br>
+        <button onclick="MostrarCosas('SearchPlayer');OcultarCosas('Menu')" class="BTNMenu"> Buscar Player</button><br>
+        <button onclick="MostrarCosas('ScoreBoard1');OcultarCosas('Menu')" class="BTNMenu"> ScoreBoard</button>
+        <p> <img src="./img/mario-metroid.gif"> </p>
+    </div>
+
+    <div id="ScoreBoard1" class="DIV" hidden>
+        <h2> ScoreBoard</h2>
+        <form id="SCC">
+            Ingrese el codigo del Juego: <input type="number" id="CD">
+        </form>
+        <button onclick="ScoreBoard();LimpiaFormulario('SCC')" class="BTNMenu">Buscar </button>
+        <button onclick="MostrarCosas('Menu');OcultarCosas('ScoreBoard1');LimpiaFormulario('SCC')" class="BTNMenu"> Regresar </button>
+        <p> <img src="./img/gamecube.gif"> </p>
+    </div>
+
+    <div id="IDJugador" class="DIV" hidden>
+        <form id="FJ">
+            <h2> Adiccionar Jugador</h2>
+            Nombre del Jugador <input type="text" id="Nombjug"><br> Documento De Identidad <input type="text" id="DocID"><br> Direccion <input type="text" id="Direcc"><br> Email <input type="text" id="EM"><br> Nickname <input type="text" id="Nick"><br>            Password <input type="password" id="Pass"><br>
+        </form>
+        <button onclick="CrearJugador();LimpiaFormulario('FJ');MostrarCosas('Menu');OcultarCosas('IDJugador')" class="BTNMenu"> Adiccionar Jugador </button>
+        <button onclick="MostrarCosas('Menu');OcultarCosas('IDJugador')" class="BTNMenu"> Regresar </button>
+        <p> <img src="./img/spaceInvaders.gif"> </p>
+    </div>
+    <div id="InicioSesion" class="DIV" hidden>
+        <h2> Log-In</h2>
+        <form id="IS">
+            Nickname: <input type="text" id="AJUGa"><br> Password: <input type="password" id="Passw"><br>
+        </form>
+        <button onclick="PassValidation();LimpiaFormulario('IS')" class="BTNMenu"> Iniciar Sesion </button>
+        <button onclick="MostrarCosas('Menu');OcultarCosas('InicioSesion')" class="BTNMenu"> Regresar </button>
+        <p> <img src="./img/pacman.gif"> </p>
+    </div>
+    <div id="IDJuego" class="DIV" hidden>
+        <h2> Registrar Compra</h2>
+        <form id="IJ">
+            Validacion de Nickname: <input type="text" id="NICKVAL"><br> Nombre Juego: <input type="text" id="NombJueg"><br> Codigo Juego: <input type="number" id="CodJuego"><br> Fecha de Compra: <input type="date" id="FDC"><br>
+        </form>
+        <button onclick="CrearJuego();LimpiaFormulario('IJ');MostrarCosas('MenuJuego');OcultarCosas('IDJuego')" class="BTNMenu"> Adiccionar Juego </button>
+        <button onclick="MostrarCosas('MenuJuego');OcultarCosas('IDJuego')" class="BTNMenu"> Regresar </button>
+    </div>
+    <div id="MenuJuego" class="DIV" hidden>
+        <h2> Menu Jugador</h2>
+        <p id="Datos">
+            <br><b>Nombres: </b> <b id="Nom"></b>
+            <br><b>Documento: </b> <b id="DMT"></b>
+            <br><b>Email:</b> <b id="EMa"></b>
+            <br><b>Nickname:</b> <b id="NCK"></b><br>
+        </p>
+        <button onclick="MostrarCosas('IDJuego');OcultarCosas('MenuJuego')" class="BTNMenu"> Registrar Compra </button>
+        <button onclick="MostrarCosas('IDPuntaje');OcultarCosas('MenuJuego')" class="BTNMenu"> Registrar Puntaje </button>
+        <button onclick="MostrarCosas('BibliotecaJuegos');OcultarCosas('MenuJuego')" class="BTNMenu"> Biblioteca </button>
+        <button onclick="MostrarCosas('ComprasRango');OcultarCosas('MenuJuego')" class="BTNMenu"> Ver compras en rango de fechas </button>
+        <button onclick="MostrarCosas('Menu');OcultarCosas('MenuJuego')" class="BTNMenu"> Regresar </button>
+    </div>
+    <div id="IDPuntaje" class="DIV" hidden>
+        <h2> Registrar Puntaje</h2>
+        <form id="FPUN">
+            Validacion de Nickname: <input type="text" id="NICKVAL1"><br> Codigo Del Juego: <input type="number" id="CDJ"><br> Puntaje: <input type="number" id="PUNJ"><br> Fecha: <input type="date" id="FDP"><br>
+        </form>
+        <button onclick="RegistrarPuntaje();LimpiaFormulario('FPUN');MostrarCosas('MenuJuego');OcultarCosas('IDPuntaje')" class="BTNMenu"> Registrar</button>
+        <button onclick="MostrarCosas('MenuJuego');OcultarCosas('IDPuntaje')" class="BTNMenu"> Regresar </button>
+
+    </div>
+    <div id="SearchPlayer" class="DIV" hidden>
+        <h2> Buscar Jugador</h2>
+        <form id="FNK">
+            Nickname: <input type="text" id="SNK"><br>
+        </form>
+        <button onclick="SearchPlayer();LimpiaFormulario('FNK')" class="BTNMenu">Buscar </button>
+        <button onclick="MostrarCosas('Menu');OcultarCosas('SearchPlayer')" class="BTNMenu"> Regresar </button>
+        <p> <img src="./img/mortalKombat.gif" width="500" height="400"> </p>
+
+    </div>
+    <div id="BibliotecaJuegos" class="DIV" hidden>
+        <h2> Biblioteca de Juegos</h2>
+        <form id="FBNK">
+            Nickname: <input type="text" id="BLNK"><br>
+        </form>
+        <button onclick="Buscar();LimpiaFormulario('FBNK')" id="BTNBuscar" class="BTNMenu">Buscar </button>
+        <button onclick="MostrarCosas('MenuJuego');OcultarCosas('BibliotecaJuegos');OcultarCosas('TablitaChingona');BorrarTablita();LimpiaFormulario('FBNK')" class="BTNMenu"> Regresar </button>
+
+    </div>
+    <br>
+    <div id="TablitaChingona" class="DIV" hidden>
+        <b>Biblioteca de: </b> <b id="BD"></b>
+        <table id="Tablita">
+            <thead>
+                <th> Nombre</th>
+                <th> Codigo </th>
+                <th> Fecha </th>
+            </thead>
+            <tbody id="TBody">
+
+
+            </tbody>
+
+        </table>
+    </div>
+    <div id="ComprasRango" hidden class="DIV">
+        <h2> Compras en Rango de Fecha</h2>
+        <form id="RF">
+            Desde: <input type="date" id="D1"> Hasta: <input type="date" id="D2"><br> Nickname: <input type="text" id="BLNK1"><br>
+        </form>
+
+        <button onclick="BuscarRF();LimpiaFormulario('RF')" id="BTNBuscar1" class="BTNMenu">Buscar </button>
+        <button onclick="MostrarCosas('MenuJuego');OcultarCosas('ComprasRango');BorrarTablita2();LimpiaFormulario('FBNK')" class="BTNMenu"> Regresar </button>
+        <table id="Tablita2.0">
+            <thead>
+                <th> Nombre</th>
+                <th> Codigo </th>
+                <th> Fecha </th>
+            </thead>
+            <tbody id="TBody2.0">
+
+
+            </tbody>
+    </div>
+</body>
+
+</html>
