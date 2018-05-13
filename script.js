@@ -10,10 +10,46 @@ $(document).ready(function() {
     const logIn = $("#logIn");
     const searchJug = $("#searchJug");
 
+    // Constantes de los DIV a limpiar (se borra cada inpit de sus formularios)
+    //const formJug = ;
+
     // Variables de clase
     var Jugadores = [];
     var Controlador = 0;
     var Controlador2 = 0;
+
+    // Constructores de cada objeto
+    function Jugador(Nomb, DId, Dir, Mail, Alias, Pass) {
+        this.Nombres = Nomb;
+        this.DI = DId;
+        this.Direccion = Dir;
+        this.EMail = Mail;
+        this.Alias = Alias;
+        this.Pass = Pass;
+        this.Games = [];
+        this.AddGame = AddGame;
+
+        function AddGame(GM) {
+            this.Games.push(GM);
+        }
+    }
+
+    function Juego(Name, Dat, ADDate) {
+        this.Name = Name;
+        this.ID = Dat;
+        this.ADDate = ADDate;
+        this.Scores = [];
+        this.AddScore = AddScore;
+
+        function AddScore(PN) {
+            this.Scores.push(PN);
+        }
+    }
+
+    function PuntajeJuego(PuntajeF, GameDate) {
+        this.PuntajeF = PuntajeF;
+        this.GameDate = GameDate;
+    }
 
     // Click listeners para cada pantalla
     $("#adicionarJug").click(function() {
@@ -21,7 +57,16 @@ $(document).ready(function() {
         OcultarCosas(menuPpal);
         $("#Nombjug").focus();
 
+        $(crearJug).off().click(function() {
+            CrearJugador();
+            LimpiaFormulario($("#FJ"));
+            alert("Se ha agregado un jugador Correctamente");
+            MostrarCosas(menuPpal);
+            OcultarCosas(menuAdd);
+        });
+
         $("#regresarAdd").click(function() {
+            LimpiaFormulario($("#FJ"));
             MostrarCosas(menuPpal);
             OcultarCosas(menuAdd);
         });
@@ -32,9 +77,9 @@ $(document).ready(function() {
         OcultarCosas(menuPpal);
         $("#AJUGa").focus();
 
-        $("#regresarAdd").click(function() {
+        $("#regresarLogIn").click(function() {
             MostrarCosas(menuPpal);
-            OcultarCosas(menuAdd);
+            OcultarCosas(menuLogin);
         });
     });
 
@@ -43,9 +88,9 @@ $(document).ready(function() {
         OcultarCosas(menuPpal);
         $("#SNK").focus();
 
-        $("#regresarAdd").click(function() {
+        $("#regresarBusc").click(function() {
             MostrarCosas(menuPpal);
-            OcultarCosas(menuAdd);
+            OcultarCosas(menuSearch);
         });
     });
 
@@ -54,11 +99,21 @@ $(document).ready(function() {
         OcultarCosas(menuPpal);
         $("#CD").focus();
 
-        $("#regresarAdd").click(function() {
+        $("#regresarSC").click(function() {
             MostrarCosas(menuPpal);
-            OcultarCosas(menuAdd);
+            OcultarCosas(menuScoreBoard);
         });
     });
+
+    // Metodo para crear un nuevo objeto de tipo jugador
+    function CrearJugador() {
+        var jug = new Jugador($("#Nombjug").value, $("#DocID").value,
+            $("#Direcc").value, $("#EM").value, $("#Nick").value,
+            $("#Pass").value);
+        Jugadores[Jugadores.length] = jug;
+        var creado = true;
+        return creado;
+    }
 
     // Metodo para volver visible una division
     function MostrarCosas(DID) {
@@ -69,53 +124,15 @@ $(document).ready(function() {
     function OcultarCosas(DID) {
         $(DID).css("display", "none");
     }
+
+    // Metodo para limpiar los input de una pantalla
+    function LimpiaFormulario(DID) {
+        $(DID).trigger("reset");
+    }
 });
 
 
 /*
-
-function Jugador(Nomb, DId, Dir, Mail, Alias, Pass) {
-    this.Nombres = Nomb;
-    this.DI = DId;
-    this.Direccion = Dir;
-    this.EMail = Mail;
-    this.Alias = Alias;
-    this.Pass = Pass;
-    this.Games = [];
-    this.AddGame = AddGame;
-
-    function AddGame(GM) {
-        this.Games.push(GM);
-    }
-}
-
-function Juego(Name, Dat, ADDate) {
-    this.Name = Name;
-    this.ID = Dat;
-    this.ADDate = ADDate;
-    this.Scores = [];
-    this.AddScore = AddScore;
-
-    function AddScore(PN) {
-        this.Scores.push(PN);
-    }
-}
-
-function PuntajeJuego(PuntajeF, GameDate) {
-    this.PuntajeF = PuntajeF;
-    this.GameDate = GameDate;
-
-}
-
-function CrearJugador() {
-    var jug = new Jugador(document.getElementById("Nombjug").value, document.getElementById("DocID").value,
-        document.getElementById("Direcc").value, document.getElementById("EM").value, document.getElementById("Nick").value,
-        document.getElementById("Pass").value);
-    Jugadores[Jugadores.length] = jug;
-    alert("Se ha agregado un jugador Correctamente");
-
-}
-
 function CrearJuego() {
     for (var VC1 = 0; VC1 < Jugadores.length; VC1 = VC1 + 1) {
         if (Jugadores[VC1].Alias.localeCompare(document.getElementById("NICKVAL").value) == 0) {
@@ -145,11 +162,6 @@ function PassValidation() {
             }
         }
     }
-}
-
-function LimpiaFormulario(DID) {
-    var x = document.getElementById(DID);
-    x.reset();
 }
 
 function RegistrarPuntaje() {
