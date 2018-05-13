@@ -1,102 +1,111 @@
-body{
+body {
     background: linear-gradient(269deg, #4f77a5, #58646c, #4a5258);
     background-size: 600% 600%;
-    
     -webkit-animation: AnimationName 5s ease infinite;
     -moz-animation: AnimationName 5s ease infinite;
     animation: AnimationName 5s ease infinite;
-    
-   
 }
- 
-@-webkit-keyframes AnimationName {
-    0%{background-position:0% 59%}
-    50%{background-position:100% 42%}
-    100%{background-position:0% 59%}
-}
-@-moz-keyframes AnimationName {
-    0%{background-position:0% 59%}
-    50%{background-position:100% 42%}
-    100%{background-position:0% 59%}
-}
-@keyframes AnimationName { 
-    0%{background-position:0% 59%}
-    50%{background-position:100% 42%}
-    100%{background-position:0% 59%}
-}
-    h2{
-    color: white;
-    text-align:center;
-    font-family: 'Press Start 2P', cursive;
-    }
-    #Menu{
-        background: linear-gradient(269deg, #24a33a, #599972, #1b91a5);
-        background-size: 600% 600%;
-        
-        -webkit-animation: AnimationName 5s ease infinite;
-        -moz-animation: AnimationName 5s ease infinite;
-        animation: AnimationName 5s ease infinite;
-    border:2px solid white;
-    border-radius:10px;
-    text-align:center;
-    max-width:600px;
-  
-    margin:0 auto;
-    border-style:solid;
-    border-width:7px;
-    font-family: 'Press Start 2P', cursive;
-    padding: 10px;
-    }
-    .DIV{
 
-    border:2px solid white;
-    border-radius:10px;
-    text-align:center;
-    max-width:500px;
-    background-color:#99B1F8;
-    margin:0 auto;
-    border-style:solid;
-    border-width:7px;
-    font-family: 'Press Start 2P', cursive;
+@-webkit-keyframes AnimationName {
+    0% {
+        background-position: 0% 59%
+    }
+    50% {
+        background-position: 100% 42%
+    }
+    100% {
+        background-position: 0% 59%
+    }
+}
+
+@-moz-keyframes AnimationName {
+    0% {
+        background-position: 0% 59%
+    }
+    50% {
+        background-position: 100% 42%
+    }
+    100% {
+        background-position: 0% 59%
+    }
+}
+
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 59%
+    }
+    50% {
+        background-position: 100% 42%
+    }
+    100% {
+        background-position: 0% 59%
+    }
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    font-family: 'Press Start 2P';
+}
+
+#Menu {
+    background: linear-gradient(269deg, #24a33a, #599972, #1b91a5);
+    background-size: 600% 600%;
+    -webkit-animation: AnimationName 5s ease infinite;
+    -moz-animation: AnimationName 5s ease infinite;
+    animation: AnimationName 5s ease infinite;
+    border: 2px solid white;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    border-style: solid;
+    border-width: 7px;
+    font-family: 'Press Start 2P';
     padding: 10px;
-    color:black;
-    text-align:center;
-    font-family:Comic Sans MS;
-    }
-    .GIF{
-        text-align:center;
-       
-        margin:0 auto;
-       
-       
-       
-    }
-    
-    
-    .BTNMenu{
-       
-        background: linear-gradient(269deg, #5300fb, #16499f, #1b79a5);
-        background-size: 600% 600%;
-        
-        -webkit-animation: AnimationName 2s ease infinite;
-        -moz-animation: AnimationName 2s ease infinite;
-        animation: AnimationName 2s ease infinite;
-        border: none;
-        color: white;
-        padding: 5px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 13px;
-        margin: 10px 2px;
-        cursor: pointer;
+}
+
+.DIV {
+    border: 2px solid white;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    background-color: #99B1F8;
+    margin: 0 auto;
+    border-style: solid;
+    border-width: 7px;
+    font-family: 'Press Start 2P';
+    padding: 10px;
+    color: black;
+}
+
+.GIF {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.BTNMenu {
+    background: linear-gradient(269deg, #5300fb, #16499f, #1b79a5);
+    background-size: 600% 600%;
+    -webkit-animation: AnimationName 2s ease infinite;
+    -moz-animation: AnimationName 2s ease infinite;
+    animation: AnimationName 2s ease infinite;
+    border: none;
+    color: white;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 10px 2px;
+    cursor: pointer;
     border-radius: 15px;
-    font-family: 'Press Start 2P', cursive;
-    }
-    #Datos{
-    
+    font-family: 'Press Start 2P';
+}
+
+#Datos {
     padding: 10px;
-    color:black;
-    text-align:Center;
-    font-family: 'Press Start 2P', cursive;
-    }
+    color: black;
+    text-align: Center;
+    font-family: 'Press Start 2P';
+}

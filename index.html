@@ -5,8 +5,9 @@
     <title>Tienda de juegos</title>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="script.js"></script>
-    <meta http-equiv="Content-Type" content="text/html ; charset=utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Autor" content="Julian Hernandez, Juan Camilo Posada">
     <meta name="Nombre" content="Base De juegos">
     <meta name="Descripcion" content="Base de datos de juegos">
@@ -15,10 +16,11 @@
 <body>
     <div id="Menu" class="DIV" style="visibility:visible">
         <h2> Base de Datos de Juegos!</h2>
-        <br><button onclick="MostrarCosas('IDJugador');OcultarCosas('Menu')" class="BTNMenu"> Adiccionar un jugador</button><br>
-        <button onclick="MostrarCosas('InicioSesion');OcultarCosas('Menu')" class="BTNMenu"> Iniciar Sesion</button><br>
-        <button onclick="MostrarCosas('SearchPlayer');OcultarCosas('Menu')" class="BTNMenu"> Buscar Player</button><br>
-        <button onclick="MostrarCosas('ScoreBoard1');OcultarCosas('Menu')" class="BTNMenu"> ScoreBoard</button>
+        <!--onclick="MostrarCosas('IDJugador');OcultarCosas('Menu')"-->
+        <br><button id="adicionarJug" class="BTNMenu"> Adiccionar un jugador</button><br>
+        <button id="iniciarSesion" class="BTNMenu"> Iniciar Sesion</button><br>
+        <button id="buscarJugador" class="BTNMenu"> Buscar Player</button><br>
+        <button id="puntajes" class="BTNMenu"> ScoreBoard</button>
         <p> <img src="./img/mario-metroid.gif"> </p>
     </div>
 
@@ -27,18 +29,23 @@
         <form id="SCC">
             Ingrese el codigo del Juego: <input type="number" id="CD">
         </form>
-        <button onclick="ScoreBoard();LimpiaFormulario('SCC')" class="BTNMenu">Buscar </button>
-        <button onclick="MostrarCosas('Menu');OcultarCosas('ScoreBoard1');LimpiaFormulario('SCC')" class="BTNMenu"> Regresar </button>
+        <!--ScoreBoard();LimpiaFormulario('SCC')"-->
+        <!--onclick="MostrarCosas('Menu');OcultarCosas('ScoreBoard1');LimpiaFormulario('SCC')"-->
+        <button id="buscarPuntaje" class="BTNMenu">Buscar </button>
+        <button id="regresarSC" class="BTNMenu"> Regresar </button>
         <p> <img src="./img/gamecube.gif"> </p>
     </div>
 
     <div id="IDJugador" class="DIV" hidden>
         <form id="FJ">
             <h2> Adiccionar Jugador</h2>
-            Nombre del Jugador <input type="text" id="Nombjug"><br> Documento De Identidad <input type="text" id="DocID"><br> Direccion <input type="text" id="Direcc"><br> Email <input type="text" id="EM"><br> Nickname <input type="text" id="Nick"><br>            Password <input type="password" id="Pass"><br>
+            Nombre del Jugador: <input type="text" id="Nombjug"><br> ID: <input type="text" id="DocID"><br> Direccion: <input type="text" id="Direcc"><br> Email: <input type="text" id="EM"><br> Nickname: <input type="text" id="Nick"><br> Password:
+            <input type="password" id="Pass"><br>
         </form>
-        <button onclick="CrearJugador();LimpiaFormulario('FJ');MostrarCosas('Menu');OcultarCosas('IDJugador')" class="BTNMenu"> Adiccionar Jugador </button>
-        <button onclick="MostrarCosas('Menu');OcultarCosas('IDJugador')" class="BTNMenu"> Regresar </button>
+        <!--onclick="CrearJugador();LimpiaFormulario('FJ');MostrarCosas('Menu');OcultarCosas('IDJugador')"-->
+        <!--onclick="MostrarCosas('Menu');OcultarCosas('IDJugador')"-->
+        <button id="crearJug" class="BTNMenu"> Adiccionar Jugador </button>
+        <button id="regresarAdd" class="BTNMenu"> Regresar </button>
         <p> <img src="./img/spaceInvaders.gif"> </p>
     </div>
     <div id="InicioSesion" class="DIV" hidden>
@@ -46,8 +53,10 @@
         <form id="IS">
             Nickname: <input type="text" id="AJUGa"><br> Password: <input type="password" id="Passw"><br>
         </form>
-        <button onclick="PassValidation();LimpiaFormulario('IS')" class="BTNMenu"> Iniciar Sesion </button>
-        <button onclick="MostrarCosas('Menu');OcultarCosas('InicioSesion')" class="BTNMenu"> Regresar </button>
+        <!--onclick="PassValidation();LimpiaFormulario('IS')"-->
+        <!--onclick="MostrarCosas('Menu');OcultarCosas('InicioSesion')"-->
+        <button id="logIn" class="BTNMenu"> Iniciar Sesion </button>
+        <button id="regresarLogIn" class="BTNMenu"> Regresar </button>
         <p> <img src="./img/pacman.gif"> </p>
     </div>
     <div id="IDJuego" class="DIV" hidden>
@@ -86,8 +95,10 @@
         <form id="FNK">
             Nickname: <input type="text" id="SNK"><br>
         </form>
-        <button onclick="SearchPlayer();LimpiaFormulario('FNK')" class="BTNMenu">Buscar </button>
-        <button onclick="MostrarCosas('Menu');OcultarCosas('SearchPlayer')" class="BTNMenu"> Regresar </button>
+        <!--onclick="SearchPlayer();LimpiaFormulario('FNK')"-->
+        <!--onclick="MostrarCosas('Menu');OcultarCosas('SearchPlayer')"-->
+        <button id="searchJug" class="BTNMenu">Buscar </button>
+        <button id="regresarBusc" class="BTNMenu"> Regresar </button>
         <p> <img src="./img/mortalKombat.gif" width="500" height="400"> </p>
 
     </div>
@@ -134,7 +145,10 @@
 
 
             </tbody>
+        </table>
     </div>
+    <script src="jquery.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
