@@ -10,9 +10,6 @@ $(document).ready(function() {
     const logIn = $("#logIn");
     const searchJug = $("#searchJug");
 
-    // Constantes de los DIV a limpiar (se borra cada inpit de sus formularios)
-    //const formJug = ;
-
     // Variables de clase
     var Jugadores = [];
     var Controlador = 0;
@@ -77,7 +74,86 @@ $(document).ready(function() {
         OcultarCosas(menuPpal);
         $("#AJUGa").focus();
 
+        $(logIn).off().click(function() {
+            PassValidation();
+            LimpiaFormulario($("#IS"));
+
+            $("#comprarJueg").click(function() {
+                MostrarCosas($("#IDJuego"));
+                OcultarCosas($("#MenuJugador"));
+
+                $("#registroComp").off().click(function() {
+                    CrearJuego();
+                    LimpiaFormulario($("#IJ"));
+                    MostrarCosas($("#MenuJugador"));
+                    OcultarCosas($("#IDJuego"));
+                });
+
+                $("#regresarComp").click(function() {
+                    MostrarCosas($("#MenuJugador"));
+                    OcultarCosas($("#IDJuego"));
+                });
+            });
+            $("#registroPuntj").click(function() {
+                MostrarCosas($("#IDPuntaje"));
+                OcultarCosas($("#MenuJugador"));
+
+                $("#puntaje").off().click(function() {
+                    RegistrarPuntaje();
+                    LimpiaFormulario($("#FPUN"));
+                    MostrarCosas($("#MenuJugador"));
+                    OcultarCosas($("#IDPuntaje"))
+                });
+
+                $("#regresarPuntj").click(function() {
+                    MostrarCosas($("#MenuJugador"));
+                    OcultarCosas($("#IDPuntaje"));
+                });
+            });
+            $("#mostrarBibl").click(function() {
+                MostrarCosas($("#BibliotecaJuegos"));
+                OcultarCosas($("#MenuJugador"));
+
+                $("#BTNBuscar").off().click(function() {
+                    BorrarTablita();
+                    Buscar();
+                    LimpiaFormulario($("#FBNK"));
+                });
+
+                $("#regresarBibl").click(function() {
+                    BorrarTablita();
+                    LimpiaFormulario($("#FBNK"));
+                    MostrarCosas($("#MenuJugador"));
+                    OcultarCosas($("#BibliotecaJuegos"));
+                    OcultarCosas($("#TablitaChingona"));
+                });
+            });
+            $("#verCompras").click(function() {
+                MostrarCosas($("#ComprasRango"));
+                OcultarCosas($("#MenuJugador"));
+
+                $("#BTNBuscar1").click(function() {
+                    BorrarTablita2;
+                    BuscarRF();
+                    LimpiaFormulario($("#RF"));
+                });
+
+                $("#regresarCompras").click(function() {
+                    BorrarTablita2();
+                    LimpiaFormulario($("#RF"));
+                    MostrarCosas($("#MenuJugador"));
+                    OcultarCosas($("#ComprasRango"));
+                    OcultarCosas($("#TablitaChingona2"));
+                });
+            });
+            $("#back2LogIn").click(function() {
+                MostrarCosas(menuLogin);
+                OcultarCosas($("#MenuJugador"));
+            });
+        });
+
         $("#regresarLogIn").click(function() {
+            LimpiaFormulario($("#IS"));
             MostrarCosas(menuPpal);
             OcultarCosas(menuLogin);
         });
@@ -87,6 +163,11 @@ $(document).ready(function() {
         MostrarCosas(menuSearch);
         OcultarCosas(menuPpal);
         $("#SNK").focus();
+
+        $(searchJug).off().click(function() {
+            SearchPlayer();
+            LimpiaFormulario($("#FNK"));
+        });
 
         $("#regresarBusc").click(function() {
             MostrarCosas(menuPpal);
@@ -99,6 +180,10 @@ $(document).ready(function() {
         OcultarCosas(menuPpal);
         $("#CD").focus();
 
+        $(buscarPuntaje).off().click(function() {
+            ScoreBoard();
+            LimpiaFormulario($("#SCC"));
+        });
         $("#regresarSC").click(function() {
             MostrarCosas(menuPpal);
             OcultarCosas(menuScoreBoard);
@@ -107,12 +192,144 @@ $(document).ready(function() {
 
     // Metodo para crear un nuevo objeto de tipo jugador
     function CrearJugador() {
-        var jug = new Jugador($("#Nombjug").value, $("#DocID").value,
-            $("#Direcc").value, $("#EM").value, $("#Nick").value,
-            $("#Pass").value);
+        var jug = new Jugador($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
         Jugadores[Jugadores.length] = jug;
-        var creado = true;
-        return creado;
+    }
+
+    // Metodo para agregar un juego
+    function CrearJuego() {
+        for (var VC1 = 0; VC1 < Jugadores.length; VC1 = VC1 + 1) {
+            if (Jugadores[VC1].Alias.localeCompare($("#NICKVAL").val()) == 0) {
+                var jueg = new Juego($("#NombJueg").val(), parseInt($("#CodJuego").val()),
+                    $("#FDC").val());
+                console.log(jueg);
+                Jugadores[VC1].AddGame(jueg);
+                alert("Compra Registrada exitosamente");
+            } else {
+                alert("Por favor verifique su NickName");
+            }
+        }
+    }
+
+    // Metodo que registra el puntaje de un jugador en un juego
+    function RegistrarPuntaje() {
+        for (var B = 0; B < Jugadores.length; B = B + 1) {
+            if (Jugadores[B].Alias.localeCompare($("#NICKVAL1").val()) == 0) {
+                for (var C = 0; C < Jugadores[B].Games.length; C = C + 1) {
+                    if ((Jugadores[B].Games[C].ID) == (parseInt($("#CDJ").val()))) {
+                        var pun = new PuntajeJuego((parseInt($("#PUNJ").val())), $("#FDP").val());
+                        console.log(pun);
+                        Jugadores[B].Games[C].AddScore(pun);
+                        alert("El puntaje: " + $("#PUNJ").val() + " del juego: " + Jugadores[B].Games[C].Name + " fue registrado exitosamente");
+                    } else {
+                        alert("Por favor verifique el codigo de juego y/o el puntaje ingresados");
+                    }
+                }
+            } else {
+                alert("Por favor verifique su NickName");
+            }
+        }
+    }
+
+    // Metodo para realizar la validacion de la contraseña en el login
+    function PassValidation() {
+        for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
+            if (Jugadores[vc].Alias.localeCompare($("#AJUGa").val()) == 0) {
+                if (Jugadores[vc].Pass.localeCompare($("#Passw").val()) == 0) {
+                    alert("Bienvenido: " + Jugadores[vc].Alias);
+                    OcultarCosas(menuLogin);
+                    MostrarCosas($("#MenuJugador"));
+                    $("#Nom").text(Jugadores[vc].Nombres);
+                    $("#DMT").text(Jugadores[vc].DI);
+                    $("#EMa").text(Jugadores[vc].EMail);
+                    $("#NCK").text(Jugadores[vc].Alias);
+                } else {
+                    alert("Usuario y/o contraseña incorrectas");
+                }
+            }
+        }
+    }
+
+    // Metodo para buscar la biblioteca de un jugador
+    function Buscar() {
+        $("#BTNBuscar").disabled = true;
+        $("#BLNK").disabled = true;
+
+        for (var i = 0; i < Jugadores.length; i = i + 1) {
+            if (Jugadores[i].Alias.localeCompare($("#BLNK").val()) == 0) {
+                $("#BD").text(Jugadores[i].Alias);
+                for (var j = 0; j < Jugadores[i].Games.length; j = j + 1) {
+                    MostrarCosas($("#TablitaChingona"));
+                    var arr = Jugadores[i].Games[j];
+                    var tr = $('<tr>');
+                    ['Name', 'ID', 'ADDate'].forEach(function(attr) {
+                        tr.append('<td>' + arr[attr] + '</td>');
+                    });
+                    $("#TBody").append(tr);
+                }
+            }
+        }
+    }
+
+    // Metodo que muestra las compras de un usuario en un rango de fechas
+    function BuscarRF() {
+        $("#BTNBuscar1").prop("disabled", true);
+        $("#BLNK1").prop("disabled", true);
+
+        for (var i = 0; i < Jugadores.length; i = i + 1) {
+            if (Jugadores[i].Alias.localeCompare($("#BLNK1").val()) == 0) {
+                for (var j = 0; j < Jugadores[i].Games.length; j = j + 1) {
+                    var arr = Jugadores[i].Games[j];
+                    if ((arr.ADDate >= $("#D1").val()) && (arr.ADDate <= $("#D2").val())) {
+                        MostrarCosas($("#TablitaChingona2"));
+                        var tr = $('<tr>');
+                        ['Name', 'ID', 'ADDate'].forEach(function(attr) {
+                            tr.append('<td>' + arr[attr] + '</td>');
+                        });
+                        $("#TBody2").append(tr);
+                    }
+                }
+            }
+        }
+    }
+
+    // Metodos que reinician las tablas
+    function BorrarTablita() {
+        $("#TBody").empty();
+        $("#BTNBuscar").prop("disabled", false);
+        $("#BLNK").prop("disabled", false);
+    }
+
+    function BorrarTablita2() {
+        $("#TBody2").empty();
+        $("#BTNBuscar1").prop("disabled", false);
+        $("#BLNK1").prop("disabled", false);
+    }
+
+    // Metodo para buscar un jugador
+    function SearchPlayer() {
+        for (var VC = 0; VC < Jugadores.length; VC = VC + 1) {
+            if (Jugadores[VC].Alias.localeCompare($("#SNK").val()) == 0) {
+                var player = ("Resultado de Búsqueda: \n Nombre: " + Jugadores[VC].Nombres + " \n Documento: " + Jugadores[VC].DI +
+                    " \n Dirección: " + Jugadores[VC].Direccion + " \n Email: " + Jugadores[VC].EMail + " \n Nickname: " + Jugadores[VC].Alias);
+                alert(player.toString());
+            }
+        }
+    }
+
+    // Metodo para cargar la tabla de puntajes
+    function ScoreBoard() {
+        var Score = "Resultado de Búsqueda: \n";
+        for (var c = 0; c < Jugadores.length; c = c + 1) {
+            for (var a = 0; a < Jugadores[c].Games.length; a = a + 1) {
+                if ((Jugadores[c].Games[a].ID) == (parseInt($("#CD").val()))) {
+                    for (var d = 0; d < Jugadores[c].Games[a].Scores.length; d = d + 1) {
+                        Score = Score + ("- Nickname: " + Jugadores[c].Alias + " Puntaje: " + Jugadores[c].Games[a].Scores[d].PuntajeF + "\n");
+                    }
+                }
+            }
+        }
+        alert(Score.toString());
     }
 
     // Metodo para volver visible una division
@@ -130,162 +347,3 @@ $(document).ready(function() {
         $(DID).trigger("reset");
     }
 });
-
-
-/*
-function CrearJuego() {
-    for (var VC1 = 0; VC1 < Jugadores.length; VC1 = VC1 + 1) {
-        if (Jugadores[VC1].Alias.localeCompare(document.getElementById("NICKVAL").value) == 0) {
-            var jueg = new Juego(document.getElementById("NombJueg").value, parseInt(document.getElementById("CodJuego").value),
-                document.getElementById("FDC").value);
-            Jugadores[VC1].AddGame(jueg);
-            alert("Compra Registrada exitosamente");
-
-        }
-
-    }
-}
-
-function PassValidation() {
-    for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
-        if (Jugadores[vc].Alias.localeCompare(document.getElementById("AJUGa").value) == 0) {
-            if (Jugadores[vc].Pass.localeCompare(document.getElementById("Passw").value) == 0) {
-                alert("Bienvenido: " + Jugadores[vc].Alias);
-                document.getElementById("InicioSesion").style.display = 'none';
-                document.getElementById("MenuJuego").style.display = 'block';
-                document.getElementById("Nom").innerHTML = Jugadores[vc].Nombres;
-                document.getElementById("DMT").innerHTML = Jugadores[vc].DI;
-                document.getElementById("EMa").innerHTML = Jugadores[vc].EMail;
-                document.getElementById("NCK").innerHTML = Jugadores[vc].Alias;
-            } else {
-                alert("Usuario y/o contraseña incorrectas");
-            }
-        }
-    }
-}
-
-function RegistrarPuntaje() {
-    for (var B = 0; B < Jugadores.length; B = B + 1) {
-        if (Jugadores[B].Alias.localeCompare(document.getElementById("NICKVAL1").value) == 0) {
-            for (var C = 0; C < Jugadores[B].Games.length; C = C + 1) {
-                if ((Jugadores[B].Games[C].ID) == (parseInt(document.getElementById("CDJ").value))) {
-                    var pun = new PuntajeJuego((parseInt(document.getElementById("PUNJ").value)), document.getElementById("FDP").value);
-                    Jugadores[B].Games[C].AddScore(pun);
-                    alert("Puntaje: " + document.getElementById("PUNJ").value + " Del juego: " + Jugadores[B].Games[C].Name + " Registrado exitosamente");
-                }
-            }
-        }
-    }
-}
-
-function Buscar() {
-
-    document.getElementById("BTNBuscar").disabled = true;
-    document.getElementById("BLNK").disabled = true;
-    for (var B = 0; B < Jugadores.length; B = B + 1) {
-        if (Jugadores[B].Alias.localeCompare(document.getElementById("BLNK").value) == 0) {
-            document.getElementById("BD").innerHTML = Jugadores[B].Alias;
-            for (var C = 0; C < Jugadores[B].Games.length; C = C + 1) {
-
-                document.getElementById("TablitaChingona").style.display = 'block'
-                var y = document.createElement("TR");
-
-                y.setAttribute("id", C);
-                var t = document.createTextNode(Jugadores[B].Games[C].Name);
-                y.appendChild(t);
-                document.getElementById("TBody").appendChild(y);
-
-                var y = document.createElement("TD");
-                var t = document.createTextNode(Jugadores[B].Games[C].ID);
-                y.appendChild(t);
-                document.getElementById(C).appendChild(y);
-
-                var y = document.createElement("TD");
-                var t = document.createTextNode(Jugadores[B].Games[C].ADDate);
-                y.appendChild(t);
-                document.getElementById(C).appendChild(y);
-
-            }
-        }
-    }
-}
-
-function BuscarRF() {
-
-    document.getElementById("BTNBuscar1").disabled = true;
-    document.getElementById("BLNK1").disabled = true;
-    for (var B = 0; B < Jugadores.length; B = B + 1) {
-        if (Jugadores[B].Alias.localeCompare(document.getElementById("BLNK1").value) == 0) {
-            document.getElementById("BD").innerHTML = Jugadores[B].Alias;
-            for (var C = 0; C < Jugadores[B].Games.length; C = C + 1) {
-                if ((Jugadores[B].Games[C].ADDate > document.getElementById("D1").value) && (Jugadores[B].Games[C].ADDate < document.getElementById("D2").value)) {
-                    document.getElementById("ComprasRango").style.display = 'block'
-                    var y = document.createElement("TR");
-
-                    y.setAttribute("id", C);
-                    var t = document.createTextNode(Jugadores[B].Games[C].Name);
-                    y.appendChild(t);
-                    document.getElementById("TBody2.0").appendChild(y);
-
-                    var y = document.createElement("TD");
-                    var t = document.createTextNode(Jugadores[B].Games[C].ID);
-                    y.appendChild(t);
-                    document.getElementById(C).appendChild(y);
-
-                    var y = document.createElement("TD");
-                    var t = document.createTextNode(Jugadores[B].Games[C].ADDate);
-                    y.appendChild(t);
-                    document.getElementById(C).appendChild(y);
-                    Controlador2 = Controlador2 + 1;
-                }
-            }
-        }
-    }
-}
-
-function BorrarTablita() {
-    for (var D = 0; D <= Controlador; D = D + 1) {
-        var element = document.getElementById(D);
-        element.parentNode.removeChild(element);
-        document.getElementById("BTNBuscar").disabled = false;
-        document.getElementById("BLNK").disabled = false;
-        Controlador = 0;
-    }
-}
-
-function BorrarTablita2() {
-    for (var D = 0; D <= Controlador2; D = D + 1) {
-        var element = document.getElementById(D);
-        element.parentNode.removeChild(element);
-        document.getElementById("BTNBuscar1").disabled = false;
-        document.getElementById("BLNK1").disabled = false;
-        Controlador2 = 0;
-    }
-}
-
-function SearchPlayer() {
-    for (var VC = 0; VC < Jugadores.length; VC = VC + 1) {
-        if (Jugadores[VC].Alias.localeCompare(document.getElementById("SNK").value) == 0) {
-            var player = ("Resultado de Búsqueda: \n Nombre: " + Jugadores[VC].Nombres + " \n Documento: " + Jugadores[VC].DI +
-                " \n Dirección: " + Jugadores[VC].Direccion + " \n Email: " + Jugadores[VC].EMail + " \n Nickname: " + Jugadores[VC].Alias);
-            alert(player.toString());
-        }
-
-    }
-
-}
-
-function ScoreBoard() {
-    var Score = "Resultado de Búsqueda: \n";
-    for (var c = 0; c < Jugadores.length; c = c + 1) {
-        for (var a = 0; a < Jugadores[c].Games.length; a = a + 1) {
-            if ((Jugadores[c].Games[a].ID) == (parseInt(document.getElementById("CD").value))) {
-                for (var d = 0; d < Jugadores[c].Games[a].Scores.length; d = d + 1) {
-                    Score = Score + ("- Nickname: " + Jugadores[c].Alias + " Puntaje: " + Jugadores[c].Games[a].Scores[d].PuntajeF + "\n");
-
-                }
-            }
-        }
-    }
-    alert(Score.toString());
-}*/
