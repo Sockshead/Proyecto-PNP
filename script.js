@@ -186,61 +186,68 @@ $(document).ready(function() {
 
     // Metodos para crear un nuevo objeto de tipo jugador
     function CrearJugador() {
-        if (($("#Nombjug").val() === "") && ($("#DocID").val() === "") && ($("#Direcc").val() === "") && ($("#EM").val() === "") && ($("#Nick").val() === "") && ($("#Pass").val() === "")) {
-            alert("Por favor ingrese sus datos en las casillas correspondientes");
-        } else if (($("#Nombjug").val() === "") || ($("#DocID").val() === "") || ($("#Direcc").val() === "") || ($("#EM").val() === "") || ($("#Nick").val() === "") || ($("#Pass").val() === "")) {
-            if ($("#Nombjug").val() === "") {
-                $("#Nombjug").css("border", "1px solid red");
-                $("#NombE").text(" Por favor ingrese su nombre").css("display", "inline").css("color", "red").fadeOut(4000);
-            }
-            if ($("#DocID").val() === "") {
-                $("#DocID").css("border", "1px solid red");
-                $("#IdE").text(" Por favor ingrese su documento").css("display", "inline").css("color", "red").fadeOut(4000);
-            }
-            if ($("#Direcc").val() === "") {
-                $("#Direcc").css("border", "1px solid red");
-                $("#AddressE").text(" Por favor ingrese su direccion").css("display", "inline").css("color", "red").fadeOut(4000);
-            }
-            if ($("#EM").val() === "") {
-                $("#EM").css("border", "1px solid red");
-                $("#EmE").text(" Por favor ingrese su eMail").css("display", "inline").css("color", "red").fadeOut(4000);
-            }
-            if ($("#Nick").val() === "") {
-                $("#Nick").css("border", "1px solid red");
-                $("#NickE").text(" Por favor ingrese su NickName").css("display", "inline").css("color", "red").fadeOut(4000);
-            }
-            if ($("#Pass").val() === "") {
-                $("#Pass").css("border", "1px solid red");
-                $("#PassE").text(" Por favor ingrese su contraseña").css("display", "inline").css("color", "red").fadeOut(4000);
-            }
-        } else {
-            if (Jugadores.length == 0) {
-                newPlayer();
-                LimpiaFormulario($("#FJ"));
+        $("table td:nth-child(2) :input").each(function() {
+            var rowDatos = $(this).val()
+            if (rowDatos === "") {
+                if (rowDatos == $("#Nombjug").val()) {
+                    $("#Nombjug").css("border", "1px solid red");
+                    $("#NombE").show().fadeOut(4000);
+                }
+                if (rowDatos == $("#DocID").val() && rowDatos === "") {
+                    $("#DocID").css("border", "1px solid red");
+                    $("#IdE").show().fadeOut(4000);
+                }
+                if (rowDatos == $("#Direcc").val() && rowDatos === "") {
+                    $("#Direcc").css("border", "1px solid red");
+                    $("#AddressE").show().fadeOut(4000);
+                }
+                if (rowDatos == $("#EM").val() && rowDatos === "") {
+                    $("#EM").css("border", "1px solid red");
+                    $("#EmE").show().fadeOut(4000);
+                }
+                if (rowDatos == $("#Nick").val() && rowDatos === "") {
+                    $("#Nick").css("border", "1px solid red");
+                    $("#NickE").show().fadeOut(4000);
+                }
+                if (rowDatos == $("#Pass").val() && rowDatos === "") {
+                    $("#Pass").css("border", "1px solid red");
+                    $("#PassE").show().fadeOut(4000);
+                }
             } else {
-                for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
-                    if (Jugadores[vc].Alias.localeCompare($("#Nick").val()) == 0) {
-                        $("#Nick").css("border", "1px solid red");
-                        $("#NickE").text(" Este NickName ya existe, por favor seleccione uno diferente").css("display", "inline").css("color", "red").fadeOut(4000);
-                        $("#Nick").val("");
-                    } else {
-                        newPlayer();
-                        LimpiaFormulario($("#FJ"));
+                if (Jugadores.length == 0) {
+                    newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
+                } else {
+                    var existe = false;
+                    for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
+                        if (Jugadores[vc].Alias.localeCompare($("#Nick").val()) == 0) {
+                            $("#Nick").css("border", "1px solid red");
+                            $("#NickE").text(" Este NickName ya existe, por favor seleccione uno diferente").css("display", "inline").css("color", "red").fadeOut(4000);
+                            //$("#Nick").val("");
+                            existe = true;
+                        }
+                    }
+                    if (existe == false) {
+                        newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
                     }
                 }
             }
-        }
+        });
     }
 
-    function newPlayer() {
-        var jug = new Jugador($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
-        Jugadores[Jugadores.length] = jug;
-        updateJugadores();
+    function newPlayer(Nombre, id, direccion, eMail, Nick, password) {
+        if ((Nombre === "") || (id === "") || (direccion === "") || (eMail === "") || (Nick === "") || (password === "")) {
+            alert("Por favor ingrese sus datos en las casillas correspondientes");
+        } else {
+            var jug = new Jugador(Nombre, id, direccion, eMail, Nick, password);
+            Jugadores[Jugadores.length] = jug;
+            updateJugadores();
 
-        alert("Jugador " + $("#Nombjug").val() + " agregado correctamente");
+            alert("Jugador " + $("#Nombjug").val() + " agregado correctamente");
 
-        MostrarCosas(menuPpal);
-        OcultarCosas(menuAdd);
+            LimpiaFormulario($("#FJ"));
+            MostrarCosas(menuPpal);
+            OcultarCosas(menuAdd);
+        }
     }
 
     // Metodo para agregar un juego

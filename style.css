@@ -79,9 +79,11 @@ h2 {
     color: black;
 }
 
-.GIF {
+.animated-gif {
     text-align: center;
-    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    width: auto\9;
 }
 
 .BTNMenu {
@@ -125,4 +127,9 @@ h2 {
 .defaultBorder {
     text-align: inherit;
     border: 1px solid black;
+}
+
+.error {
+    display: inline;
+    color: red;
 }

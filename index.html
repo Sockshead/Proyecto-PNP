@@ -20,7 +20,7 @@
         <button id="iniciarSesion" class="BTNMenu"> Iniciar Sesion</button><br>
         <button id="buscarJugador" class="BTNMenu"> Buscar Player</button><br>
         <button id="puntajes" class="BTNMenu"> ScoreBoard</button>
-        <p> <img src="./img/mario-metroid.gif"> </p>
+        <p> <img class="animated-gif" src="./img/mario-metroid.gif"> </p>
     </div>
 
     <div id="ScoreBoard1" class="DIV" hidden>
@@ -30,24 +30,50 @@
         </form>
         <button id="buscarPuntaje" class="BTNMenu">Buscar </button>
         <button id="regresarSC" class="BTNMenu"> Regresar </button>
-        <p> <img src="./img/gamecube.gif"> </p>
+        <p> <img class="animated-gif" src="./img/gamecube.gif"> </p>
     </div>
 
     <div id="IDJugador" class="DIV" hidden>
         <div id="formulario" class="formulario">
             <form id="FJ">
                 <h2> Adiccionar Jugador</h2>
-                <b>Nombre del Jugador:</b> <input type="text" id="Nombjug" class="defaultBorder"><span id="NombE"></span><br>
-                <b>ID:</b> <input type="text" id="DocID" class="defaultBorder"><span id="IdE"></span><br>
-                <b>Direccion:</b> <input type="text" id="Direcc" class="defaultBorder"><span id="AddressE"></span><br>
-                <b>Email:</b> <input type="text" id="EM" class="defaultBorder"><span id="EmE"></span><br>
-                <b>Nickname:</b> <input type="text" id="Nick" class="defaultBorder"><span id="NickE"></span><br>
-                <b>Password:</b> <input type="password" id="Pass" class="defaultBorder"><span id="PassE"></span><br>
+                <table>
+                    <tr>
+                        <td><b>Nombre del Jugador:</b> </td>
+                        <td><input type="text" id="Nombjug" class="defaultBorder"></td>
+                        <td><span style="display:none" class="error" id="NombE"> Por favor ingrese su nombre</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>ID:</b> </td>
+                        <td><input type="text" id="DocID" class="defaultBorder"></td>
+                        <td><span style="display:none" class="error" id="IdE"> Por favor ingrese su documento</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Direccion:</b></td>
+                        <td><input type="text" id="Direcc" class="defaultBorder"></td>
+                        <td><span style="display:none" class="error" id="AddressE"> Por favor ingrese su direccion</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Email:</b> </td>
+                        <td><input type="text" id="EM" class="defaultBorder"></td>
+                        <td><span style="display:none" class="error" id="EmE"> Por favor ingrese su eMail</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Nickname:</b> </td>
+                        <td><input type="text" id="Nick" class="defaultBorder"></td>
+                        <td><span style="display:none" class="error" id="NickE"> Por favor ingrese su NickName</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Password:</b></td>
+                        <td><input type="password" id="Pass" class="defaultBorder"></td>
+                        <td><span style="display:none" class="error" id="PassE"> Por favor ingrese su contraseña</span></td>
+                    </tr>
+                </table>
             </form>
         </div>
         <button id="crearJug" class="BTNMenu"> Adiccionar Jugador </button>
         <button id="regresarAdd" class="BTNMenu"> Regresar </button>
-        <p> <img src="./img/spaceInvaders.gif"> </p>
+        <p> <img class="animated-gif" src="./img/spaceInvaders.gif"> </p>
     </div>
     <div id="InicioSesion" class="DIV" hidden>
         <h2> Log-In</h2>
@@ -57,7 +83,7 @@
         </form>
         <button id="logIn" class="BTNMenu"> Iniciar Sesion </button>
         <button id="regresarLogIn" class="BTNMenu"> Regresar </button>
-        <p> <img src="./img/pacman.gif"> </p>
+        <p> <img class="animated-gif" src="./img/pacman.gif"> </p>
     </div>
     <div id="IDJuego" class="DIV" hidden>
         <h2> Registrar Compra</h2>
@@ -97,7 +123,7 @@
         </form>
         <button id="searchJug" class="BTNMenu">Buscar </button>
         <button id="regresarBusc" class="BTNMenu"> Regresar </button>
-        <p> <img src="./img/mortalKombat.gif" width="500" height="400"> </p>
+        <p> <img class="animated-gif" src="./img/mortalKombat.gif" width="500" height="400"> </p>
 
     </div>
     <div id="BibliotecaJuegos" class="DIV" hidden>
