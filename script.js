@@ -11,9 +11,7 @@ $(document).ready(function() {
     const searchJug = $("#searchJug");
 
     // Variables de clase
-    var Jugadores = [];
-    var Controlador = 0;
-    var Controlador2 = 0;
+    var Jugadores = JSON.parse(localStorage.getItem("Jugador")) || []; //
 
     // Constructores de cada objeto
     function Jugador(Nomb, DId, Dir, Mail, Alias, Pass) {
@@ -23,7 +21,7 @@ $(document).ready(function() {
         this.EMail = Mail;
         this.Alias = Alias;
         this.Pass = Pass;
-        this.Games = [];
+        this.Games = JSON.parse(localStorage.getItem("Juego")) || [];
         this.AddGame = AddGame;
 
         function AddGame(GM) {
@@ -35,7 +33,7 @@ $(document).ready(function() {
         this.Name = Name;
         this.ID = Dat;
         this.ADDate = ADDate;
-        this.Scores = [];
+        this.Scores = JSON.parse(localStorage.getItem("PuntajeJuego")) || [];
         this.AddScore = AddScore;
 
         function AddScore(PN) {
@@ -56,10 +54,6 @@ $(document).ready(function() {
 
         $(crearJug).off().click(function() {
             CrearJugador();
-            LimpiaFormulario($("#FJ"));
-            alert("Se ha agregado un jugador Correctamente");
-            MostrarCosas(menuPpal);
-            OcultarCosas(menuAdd);
         });
 
         $("#regresarAdd").click(function() {
@@ -190,10 +184,63 @@ $(document).ready(function() {
         });
     });
 
-    // Metodo para crear un nuevo objeto de tipo jugador
+    // Metodos para crear un nuevo objeto de tipo jugador
     function CrearJugador() {
+        if (($("#Nombjug").val() === "") && ($("#DocID").val() === "") && ($("#Direcc").val() === "") && ($("#EM").val() === "") && ($("#Nick").val() === "") && ($("#Pass").val() === "")) {
+            alert("Por favor ingrese sus datos en las casillas correspondientes");
+        } else if (($("#Nombjug").val() === "") || ($("#DocID").val() === "") || ($("#Direcc").val() === "") || ($("#EM").val() === "") || ($("#Nick").val() === "") || ($("#Pass").val() === "")) {
+            if ($("#Nombjug").val() === "") {
+                $("#Nombjug").css("border", "1px solid red");
+                $("#NombE").text(" Por favor ingrese su nombre").css("display", "inline").css("color", "red").fadeOut(4000);
+            }
+            if ($("#DocID").val() === "") {
+                $("#DocID").css("border", "1px solid red");
+                $("#IdE").text(" Por favor ingrese su documento").css("display", "inline").css("color", "red").fadeOut(4000);
+            }
+            if ($("#Direcc").val() === "") {
+                $("#Direcc").css("border", "1px solid red");
+                $("#AddressE").text(" Por favor ingrese su direccion").css("display", "inline").css("color", "red").fadeOut(4000);
+            }
+            if ($("#EM").val() === "") {
+                $("#EM").css("border", "1px solid red");
+                $("#EmE").text(" Por favor ingrese su eMail").css("display", "inline").css("color", "red").fadeOut(4000);
+            }
+            if ($("#Nick").val() === "") {
+                $("#Nick").css("border", "1px solid red");
+                $("#NickE").text(" Por favor ingrese su NickName").css("display", "inline").css("color", "red").fadeOut(4000);
+            }
+            if ($("#Pass").val() === "") {
+                $("#Pass").css("border", "1px solid red");
+                $("#PassE").text(" Por favor ingrese su contraseña").css("display", "inline").css("color", "red").fadeOut(4000);
+            }
+        } else {
+            if (Jugadores.length == 0) {
+                newPlayer();
+                LimpiaFormulario($("#FJ"));
+            } else {
+                for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
+                    if (Jugadores[vc].Alias.localeCompare($("#Nick").val()) == 0) {
+                        $("#Nick").css("border", "1px solid red");
+                        $("#NickE").text(" Este NickName ya existe, por favor seleccione uno diferente").css("display", "inline").css("color", "red").fadeOut(4000);
+                        $("#Nick").val("");
+                    } else {
+                        newPlayer();
+                        LimpiaFormulario($("#FJ"));
+                    }
+                }
+            }
+        }
+    }
+
+    function newPlayer() {
         var jug = new Jugador($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
         Jugadores[Jugadores.length] = jug;
+        updateJugadores();
+
+        alert("Jugador " + $("#Nombjug").val() + " agregado correctamente");
+
+        MostrarCosas(menuPpal);
+        OcultarCosas(menuAdd);
     }
 
     // Metodo para agregar un juego
@@ -234,17 +281,27 @@ $(document).ready(function() {
     // Metodo para realizar la validacion de la contraseña en el login
     function PassValidation() {
         for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
-            if (Jugadores[vc].Alias.localeCompare($("#AJUGa").val()) == 0) {
-                if (Jugadores[vc].Pass.localeCompare($("#Passw").val()) == 0) {
-                    alert("Bienvenido: " + Jugadores[vc].Alias);
-                    OcultarCosas(menuLogin);
-                    MostrarCosas($("#MenuJugador"));
-                    $("#Nom").text(Jugadores[vc].Nombres);
-                    $("#DMT").text(Jugadores[vc].DI);
-                    $("#EMa").text(Jugadores[vc].EMail);
-                    $("#NCK").text(Jugadores[vc].Alias);
+            if (($("#AJUGa").val() === "") && ($("#Passw").val() === "")) {
+                alert("Por favor ingrese sus datos en las casillas correspondientes");
+            } else if ($("#AJUGa").val() === "") {
+                alert("Por favor ingrese su usuario");
+            } else if ($("#Passw").val() === "") {
+                alert("Por favor ingrese su contraseña");
+            } else {
+                if (Jugadores[vc].Alias.localeCompare($("#AJUGa").val()) == 0) {
+                    if (Jugadores[vc].Pass.localeCompare($("#Passw").val()) == 0) {
+                        alert("Bienvenido: " + Jugadores[vc].Alias);
+                        OcultarCosas(menuLogin);
+                        MostrarCosas($("#MenuJugador"));
+                        $("#Nom").text(Jugadores[vc].Nombres);
+                        $("#DMT").text(Jugadores[vc].DI);
+                        $("#EMa").text(Jugadores[vc].EMail);
+                        $("#NCK").text(Jugadores[vc].Alias);
+                    } else {
+                        alert("Contraseña incorrecta");
+                    }
                 } else {
-                    alert("Usuario y/o contraseña incorrectas");
+                    alert("Usuario incorrecto");
                 }
             }
         }
@@ -344,6 +401,22 @@ $(document).ready(function() {
 
     // Metodo para limpiar los input de una pantalla
     function LimpiaFormulario(DID) {
+        $("input").css("border", "1px solid black");
         $(DID).trigger("reset");
     }
+
+    // Actualizar el arreglo de jugadores.
+    const updateJugadores = () => {
+        localStorage.setItem("Jugadores", JSON.stringify(Jugador));
+    };
+
+    // Actualizar el arreglo de juegos.
+    const updateJuegos = () => {
+        localStorage.setItem("Games", JSON.stringify(Juego));
+    };
+
+    // Actualizar el arreglo de puntajes.
+    const updatePuntajes = () => {
+        localStorage.setItem("Scores", JSON.stringify(PuntajeJuego));
+    };
 });
