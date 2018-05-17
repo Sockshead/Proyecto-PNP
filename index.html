@@ -26,7 +26,7 @@
     <div id="ScoreBoard1" class="DIV" hidden>
         <h2> ScoreBoard</h2>
         <form id="SCC">
-            Ingrese el codigo del Juego: <input type="number" id="CD">
+            Ingrese el codigo del Juego: <input type="number" id="CD" class="defaultBorder">
         </form>
         <button id="buscarPuntaje" class="BTNMenu">Buscar </button>
         <button id="regresarSC" class="BTNMenu"> Regresar </button>
@@ -90,7 +90,8 @@
     <div id="IDJuego" class="DIV" hidden>
         <h2> Registrar Compra</h2>
         <form id="IJ">
-            Validacion de Nickname: <input type="text" id="NICKVAL"><br> Nombre Juego: <input type="text" id="NombJueg"><br> Codigo Juego: <input type="number" id="CodJuego"><br> Fecha de Compra: <input type="date" id="FDC"><br>
+            Validacion de Nickname: <input type="text" id="NICKVAL" class="defaultBorder"><br> Nombre Juego: <input type="text" id="NombJueg" class="defaultBorder"><br> Codigo Juego: <input type="number" id="CodJuego" class="defaultBorder"><br> Fecha
+            de Compra: <input type="date" id="FDC" class="defaultBorder"><br>
         </form>
         <button id="registroComp" class="BTNMenu"> Adiccionar Juego </button>
         <button id="regresarComp" class="BTNMenu"> Regresar </button>
@@ -112,7 +113,8 @@
     <div id="IDPuntaje" class="DIV" hidden>
         <h2> Registrar Puntaje</h2>
         <form id="FPUN">
-            Validacion de Nickname: <input type="text" id="NICKVAL1"><br> Codigo Del Juego: <input type="number" id="CDJ"><br> Puntaje: <input type="number" id="PUNJ"><br> Fecha: <input type="date" id="FDP"><br>
+            Validacion de Nickname: <input type="text" id="NICKVAL1" class="defaultBorder"><br> Codigo Del Juego: <input type="number" id="CDJ" class="defaultBorder"><br> Puntaje: <input type="number" id="PUNJ" class="defaultBorder"><br> Fecha:
+            <input type="date" id="FDP" class="defaultBorder"><br>
         </form>
         <button id="puntaje" class="BTNMenu"> Registrar</button>
         <button id="regresarPuntj" class="BTNMenu"> Regresar </button>
@@ -121,7 +123,12 @@
     <div id="SearchPlayer" class="DIV" hidden>
         <h2> Buscar Jugador</h2>
         <form id="FNK">
-            Nickname: <input type="text" id="SNK"><br>
+            <table class="table">
+                <tr>
+                    <td>Nickname: </td>
+                    <td><input type="text" id="SNK" class="defaultBorder"></td>
+                </tr>
+            </table>
         </form>
         <button id="searchJug" class="BTNMenu">Buscar </button>
         <button id="regresarBusc" class="BTNMenu"> Regresar </button>
@@ -131,7 +138,7 @@
     <div id="BibliotecaJuegos" class="DIV" hidden>
         <h2> Biblioteca de Juegos</h2>
         <form id="FBNK">
-            Nickname: <input type="text" id="BLNK"><br>
+            Nickname: <input type="text" id="BLNK" class="defaultBorder"><br>
         </form>
         <button id="BTNBuscar" class="BTNMenu">Buscar </button>
         <button id="regresarBibl" class="BTNMenu"> Regresar </button>
@@ -156,7 +163,7 @@
     <div id="ComprasRango" class="DIV" hidden>
         <h2> Compras en Rango de Fecha</h2>
         <form id="RF">
-            Desde: <input type="date" id="D1"> Hasta: <input type="date" id="D2"><br> Nickname: <input type="text" id="BLNK1"><br>
+            Desde: <input type="date" id="D1" class="defaultBorder"> Hasta: <input type="date" id="D2" class="defaultBorder"><br> Nickname: <input type="text" id="BLNK1" class="defaultBorder"><br>
         </form>
         <button id="BTNBuscar1" class="BTNMenu">Buscar </button>
         <button id="regresarCompras" class="BTNMenu"> Regresar </button>
