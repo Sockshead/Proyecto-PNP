@@ -35,38 +35,32 @@
 
     <div id="IDJugador" class="DIV" hidden>
         <div id="formulario" class="formulario">
-            <form id="FJ">
+            <form id="FJ" class="form">
                 <h2> Adiccionar Jugador</h2>
-                <table>
+                <table class="table">
                     <tr>
-                        <td><b>Nombre del Jugador:</b> </td>
+                        <td><b>Nombre:</b> </td>
                         <td><input type="text" id="Nombjug" class="defaultBorder"></td>
-                        <td><span style="display:none" class="error" id="NombE"> Por favor ingrese su nombre</span></td>
                     </tr>
                     <tr>
                         <td><b>ID:</b> </td>
                         <td><input type="text" id="DocID" class="defaultBorder"></td>
-                        <td><span style="display:none" class="error" id="IdE"> Por favor ingrese su documento</span></td>
                     </tr>
                     <tr>
                         <td><b>Direccion:</b></td>
                         <td><input type="text" id="Direcc" class="defaultBorder"></td>
-                        <td><span style="display:none" class="error" id="AddressE"> Por favor ingrese su direccion</span></td>
                     </tr>
                     <tr>
                         <td><b>Email:</b> </td>
                         <td><input type="text" id="EM" class="defaultBorder"></td>
-                        <td><span style="display:none" class="error" id="EmE"> Por favor ingrese su eMail</span></td>
                     </tr>
                     <tr>
                         <td><b>Nickname:</b> </td>
                         <td><input type="text" id="Nick" class="defaultBorder"></td>
-                        <td><span style="display:none" class="error" id="NickE"> Por favor ingrese su NickName</span></td>
                     </tr>
                     <tr>
                         <td><b>Password:</b></td>
                         <td><input type="password" id="Pass" class="defaultBorder"></td>
-                        <td><span style="display:none" class="error" id="PassE"> Por favor ingrese su contraseña</span></td>
                     </tr>
                 </table>
             </form>
@@ -78,8 +72,16 @@
     <div id="InicioSesion" class="DIV" hidden>
         <h2> Log-In</h2>
         <form id="IS">
-            <b>Nickname:</b> <input type="text" id="AJUGa" class="defaultBorder"><span id="NickIng"></span><br>
-            <b>Password:</b> <input type="password" id="Passw" class="defaultBorder"><span id="PassIng"></span><br>
+            <table class="table">
+                <tr>
+                    <td><b>Nickname:</b></td>
+                    <td><input type="text" id="AJUGa" class="defaultBorder"></td>
+                </tr>
+                <tr>
+                    <td><b>Password:</b></td>
+                    <td><input type="password" id="Passw" class="defaultBorder"></td>
+                </tr>
+            </table>
         </form>
         <button id="logIn" class="BTNMenu"> Iniciar Sesion </button>
         <button id="regresarLogIn" class="BTNMenu"> Regresar </button>
@@ -172,6 +174,7 @@
             </tbody>
         </table>
     </div>
+    <script src="sweetAlert.js"></script>
     <script src="jquery.js"></script>
     <script src="script.js"></script>
 </body>

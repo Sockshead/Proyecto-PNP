@@ -79,6 +79,13 @@ h2 {
     color: black;
 }
 
+.table {
+    margin: auto;
+    max-width: 100%;
+    height: auto;
+    width: auto\9;
+}
+
 .animated-gif {
     text-align: center;
     max-width: 100%;

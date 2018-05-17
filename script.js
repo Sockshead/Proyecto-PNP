@@ -186,67 +186,91 @@ $(document).ready(function() {
 
     // Metodos para crear un nuevo objeto de tipo jugador
     function CrearJugador() {
-        $("table td:nth-child(2) :input").each(function() {
-            var rowDatos = $(this).val()
-            if (rowDatos === "") {
-                if (rowDatos == $("#Nombjug").val()) {
-                    $("#Nombjug").css("border", "1px solid red");
-                    $("#NombE").show().fadeOut(4000);
-                }
-                if (rowDatos == $("#DocID").val() && rowDatos === "") {
-                    $("#DocID").css("border", "1px solid red");
-                    $("#IdE").show().fadeOut(4000);
-                }
-                if (rowDatos == $("#Direcc").val() && rowDatos === "") {
-                    $("#Direcc").css("border", "1px solid red");
-                    $("#AddressE").show().fadeOut(4000);
-                }
-                if (rowDatos == $("#EM").val() && rowDatos === "") {
-                    $("#EM").css("border", "1px solid red");
-                    $("#EmE").show().fadeOut(4000);
-                }
-                if (rowDatos == $("#Nick").val() && rowDatos === "") {
-                    $("#Nick").css("border", "1px solid red");
-                    $("#NickE").show().fadeOut(4000);
-                }
-                if (rowDatos == $("#Pass").val() && rowDatos === "") {
-                    $("#Pass").css("border", "1px solid red");
-                    $("#PassE").show().fadeOut(4000);
-                }
+        if (validarFormCrear() == true) {
+            if (Jugadores.length == 0) {
+                newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
             } else {
-                if (Jugadores.length == 0) {
+                var existe = false;
+                for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
+                    if (Jugadores[vc].Alias.localeCompare($("#Nick").val()) == 0) {
+                        $("#Nick").css("border", "1px solid red");
+                        errorMsg("Nick Name ya existente, intenta con uno nuevo");
+                        //$("#Nick").val("");
+                        existe = true;
+                    }
+                }
+                if (existe == false) {
                     newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
-                } else {
-                    var existe = false;
-                    for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
-                        if (Jugadores[vc].Alias.localeCompare($("#Nick").val()) == 0) {
-                            $("#Nick").css("border", "1px solid red");
-                            $("#NickE").text(" Este NickName ya existe, por favor seleccione uno diferente").css("display", "inline").css("color", "red").fadeOut(4000);
-                            //$("#Nick").val("");
-                            existe = true;
-                        }
-                    }
-                    if (existe == false) {
-                        newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
-                    }
                 }
             }
-        });
+        }
+    }
+
+    function errorMsg(eMsg) {
+        swal("Error", eMsg, "error");
     }
 
     function newPlayer(Nombre, id, direccion, eMail, Nick, password) {
         if ((Nombre === "") || (id === "") || (direccion === "") || (eMail === "") || (Nick === "") || (password === "")) {
-            alert("Por favor ingrese sus datos en las casillas correspondientes");
+            errorMsg("Ingresa tus datos en las casillas correspondientes");
         } else {
             var jug = new Jugador(Nombre, id, direccion, eMail, Nick, password);
             Jugadores[Jugadores.length] = jug;
             updateJugadores();
+            console.log(jug);
 
-            alert("Jugador " + $("#Nombjug").val() + " agregado correctamente");
+            swal("Jugador creado", ("Jugador " + $("#Nombjug").val() + " agregado correctamente"), "success");
 
             LimpiaFormulario($("#FJ"));
             MostrarCosas(menuPpal);
             OcultarCosas(menuAdd);
+        }
+    }
+
+    function validarFormCrear() {
+        var error = false;
+        var exito = false;
+        $("table td:nth-child(2) :input").each(function() {
+            var rowDatos = $(this).val()
+            if (rowDatos === "") {
+                errorMsg("Ingresa tus datos en las casillas correspondientes");
+                if (rowDatos == $("#Nombjug").val()) {
+                    $("#Nombjug").css("border", "1px solid red");
+                    error = true;
+                    //errorMsg("Ingresa un nombre");
+                }
+                if (rowDatos == $("#DocID").val()) {
+                    $("#DocID").css("border", "1px solid red");
+                    error = true;
+                    //errorMsg("Ingresa un ID");
+                }
+                if (rowDatos == $("#Direcc").val()) {
+                    $("#Direcc").css("border", "1px solid red");
+                    error = true;
+                    //errorMsg("Ingresa una direccion");
+                }
+                if (rowDatos == $("#EM").val()) {
+                    $("#EM").css("border", "1px solid red");
+                    error = true;
+                    //errorMsg("Ingresa un e-Mail");
+                }
+                if (rowDatos == $("#Nick").val()) {
+                    $("#Nick").css("border", "1px solid red");
+                    error = true;
+                    //errorMsg("Ingresa un Nick Name");
+                }
+                if (rowDatos == $("#Pass").val()) {
+                    $("#Pass").css("border", "1px solid red");
+                    error = true;
+                    //errorMsg("Ingresa una contraseña");
+                }
+            }
+        });
+        if (error != true) {
+            exito = true;
+            console.log(exito);
+
+            return exito;
         }
     }
 
