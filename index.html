@@ -18,15 +18,20 @@
         <h2> Base de Datos de Juegos</h2>
         <br><button id="adicionarJug" class="BTNMenu"> Adiccionar un jugador</button><br>
         <button id="iniciarSesion" class="BTNMenu"> Iniciar Sesion</button><br>
-        <button id="buscarJugador" class="BTNMenu"> Buscar Player</button><br>
-        <button id="puntajes" class="BTNMenu"> ScoreBoard</button>
+        <button id="buscarJugador" class="BTNMenu"> Buscar jugador</button><br>
+        <button id="puntajes" class="BTNMenu"> Puntaje alto</button>
         <p> <img class="animated-gif" src="./img/mario-metroid.gif"> </p>
     </div>
 
     <div id="ScoreBoard1" class="DIV" hidden>
-        <h2> ScoreBoard</h2>
+        <h2> Puntaje mas alto</h2>
         <form id="SCC">
-            Ingrese el codigo del Juego: <input type="number" id="CD" class="defaultBorder">
+            <table class="table">
+                <tr>
+                    <td> Ingrese el codigo del Juego: </td>
+                    <td><input type="number" id="CD" class="defaultBorder"></td>
+                </tr>
+            </table>
         </form>
         <button id="buscarPuntaje" class="BTNMenu">Buscar </button>
         <button id="regresarSC" class="BTNMenu"> Regresar </button>
@@ -123,7 +128,6 @@
         <button id="comprarJueg" class="BTNMenu"> Registrar Compra </button>
         <button id="registroPuntj" class="BTNMenu"> Registrar Puntaje </button>
         <button id="mostrarBibl" class="BTNMenu"> Biblioteca </button>
-        <button id="verCompras" class="BTNMenu"> Ver compras en rango de fechas </button>
         <button id="back2LogIn" class="BTNMenu"> Cerrar sesion </button>
     </div>
     <div id="IDPuntaje" class="DIV" hidden>
@@ -169,20 +173,10 @@
     </div>
     <div id="BibliotecaJuegos" class="DIV" hidden>
         <h2> Biblioteca de Juegos</h2>
-        <form id="FBNK">
-            <table class="table">
-                <tr>
-                    <td>Nickname:</td>
-                    <td><input type="text" id="BLNK" class="defaultBorder"></td>
-                </tr>
-            </table>
-        </form>
-        <button id="BTNBuscar" class="BTNMenu">Buscar </button>
         <button id="regresarBibl" class="BTNMenu"> Regresar </button>
     </div>
     <br>
     <div id="TablitaChingona" class="DIV" hidden>
-        <b>Biblioteca de: </b> <b id="BD"></b>
         <table id="Tablita" class="table">
             <thead>
                 <th> Nombre</th>
@@ -194,40 +188,6 @@
 
             </tbody>
 
-        </table>
-    </div>
-    <div id="ComprasRango" class="DIV" hidden>
-        <h2> Compras en Rango de Fecha</h2>
-        <form id="RF">
-            <table class="table">
-                <tr>
-                    <td><b>Desde: </b> </td>
-                    <td><input type="date" id="D1" class="defaultBorder"></td>
-                </tr>
-                <tr>
-                    <td><b>Hasta: </b> </td>
-                    <td><input type="date" id="D2" class="defaultBorder"></td>
-                </tr>
-                <tr>
-                    <td><b>Nickname: </b></td>
-                    <td><input type="text" id="BLNK1" class="defaultBorder"></td>
-                </tr>
-            </table>
-        </form>
-        <button id="BTNBuscar1" class="BTNMenu">Buscar </button>
-        <button id="regresarCompras" class="BTNMenu"> Regresar </button>
-    </div>
-    <div id="TablitaChingona2" class="DIV" hidden>
-        <table id="Tablita2.0">
-            <thead>
-                <th> Nombre</th>
-                <th> Codigo </th>
-                <th> Fecha </th>
-            </thead>
-            <tbody id="TBody2">
-
-
-            </tbody>
         </table>
     </div>
     <script src="sweetAlert.js"></script>
