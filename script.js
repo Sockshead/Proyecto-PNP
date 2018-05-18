@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    //localStorage.clear();
     // Constantes de los ID de los botones principales
     const menuPpal = $("#Menu");
     const menuAdd = $("#IDJugador");
@@ -11,7 +12,20 @@ $(document).ready(function() {
     const searchJug = $("#searchJug");
 
     // Variables de clase
-    var Jugadores = JSON.parse(localStorage.getItem("Jugador")) || []; //
+    var Jugadores = JSON.parse(localStorage.getItem("Jugador"));
+
+    // Carga el arreglo de jugadores.
+    /*const loadJug = () => {
+        for (var i = 0; i < Jugadores.length; i = i + 1) {
+            newPlayer(Jugadores[i].Nombres, Jugadores[i].DI, Jugadores[i].Direccion, Jugadores[i].EMail, Jugadores[i].Alias, Jugadores[i].Pass);
+        }
+    };*/
+
+    if (Jugadores == null) {
+        Jugadores = [];
+    }
+
+    console.log(Jugadores);
 
     // Constructores de cada objeto
     function Jugador(Nomb, DId, Dir, Mail, Alias, Pass) {
@@ -24,6 +38,9 @@ $(document).ready(function() {
         this.Games = JSON.parse(localStorage.getItem("Juego")) || [];
         this.AddGame = AddGame;
 
+
+        //console.log(Games);
+
         function AddGame(GM) {
             this.Games.push(GM);
         }
@@ -35,6 +52,9 @@ $(document).ready(function() {
         this.ADDate = ADDate;
         this.Scores = JSON.parse(localStorage.getItem("PuntajeJuego")) || [];
         this.AddScore = AddScore;
+
+
+        //console.log(Scores);
 
         function AddScore(PN) {
             this.Scores.push(PN);
@@ -186,22 +206,23 @@ $(document).ready(function() {
     // Metodos para crear un nuevo objeto de tipo jugador
     function CrearJugador() {
         if (validarFormCrear() == true) {
-            if (Jugadores.length == 0) {
+            /*if (Jugadores.length == 0) {
                 newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
-            } else {
-                var existe = false;
-                for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
-                    if (Jugadores[vc].Alias.localeCompare($("#Nick").val()) == 0) {
-                        $("#Nick").css("border", "1px solid red");
-                        errorMsg("Nick Name ya existente, intenta con uno nuevo");
-                        //$("#Nick").val("");
-                        existe = true;
-                    }
-                }
-                if (existe == false) {
-                    newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
+            } else {*/
+            var existe = false;
+            for (var vc = 0; vc < Jugadores.length; vc = vc + 1) {
+                var jug = Jugadores[vc].Alias;
+                if (jug.localeCompare($("#Nick").val()) == 0) {
+                    $("#Nick").css("border", "1px solid red");
+                    errorMsg("Nick Name ya existente, intenta con uno nuevo");
+                    //$("#Nick").val("");
+                    existe = true;
                 }
             }
+            if (existe == false) {
+                newPlayer($("#Nombjug").val(), $("#DocID").val(), $("#Direcc").val(), $("#EM").val(), $("#Nick").val(), $("#Pass").val());
+            }
+            //}
         }
     }
 
@@ -210,8 +231,9 @@ $(document).ready(function() {
             errorMsg("Ingresa tus datos en las casillas correspondientes");
         } else {
             var jug = new Jugador(Nombre, id, direccion, eMail, Nick, password);
-            Jugadores[Jugadores.length] = jug;
-            updateJugadores();
+            localStorage.setItem("jug", JSON.stringify(Jugador));
+            Jugadores.push(jug);
+            localStorage.setItem("Jugador", JSON.stringify(Jugadores));
 
             swal("Jugador creado", ("Jugador " + $("#Nombjug").val() + " agregado correctamente"), "success");
 
@@ -514,19 +536,14 @@ $(document).ready(function() {
         $(DID).trigger("reset");
     }
 
-    // Actualizar el arreglo de jugadores.
-    const updateJugadores = () => {
-        localStorage.setItem("Jugadores", JSON.stringify(Jugador));
-    };
-
     // Actualizar el arreglo de juegos.
     const updateJuegos = () => {
-        localStorage.setItem("Games", JSON.stringify(Juego));
+        localStorage.setItem("Juego", JSON.stringify(Games));
     };
 
     // Actualizar el arreglo de puntajes.
     const updatePuntajes = () => {
-        localStorage.setItem("Scores", JSON.stringify(PuntajeJuego));
+        localStorage.setItem("PuntajeJuego", JSON.stringify(Scores));
     };
 
     // Metodo de alertas de error
