@@ -478,15 +478,23 @@ $(document).ready(function() {
 
     // Metodo para cargar la tabla de puntajes
     function ScoreBoard() {
+        var temp = 0,
+            puntM = 0;
         if (validarScore() == true) {
             for (var c = 0; c < Jugadores.length; c = c + 1) {
                 for (var a = 0; a < Jugadores[c].Games.length; a = a + 1) {
                     if ((Jugadores[c].Games[a].ID) == (parseInt($("#CD").val()))) {
                         for (var d = 0; d < Jugadores[c].Games[a].Scores.length; d = d + 1) {
-                            var Score = ("Nickname: " + Jugadores[c].Alias + " Puntaje: " + Jugadores[c].Games[a].Scores[d].PuntajeF + "\n");
-                            swal("Resultado de Búsqueda: ", Score.toString());
+                            puntM = Jugadores[c].Games[a].Scores[d];
+                            for (var i = 1; i < Jugadores[c].Games[a].Scores.length; i = i + 1) {
+                                temp = Jugadores[c].Games[a].Scores[i];
+                                if (temp > puntM) {
+                                    puntM = temp
+                                }
+                            }
                         }
-                        //LimpiaFormulario($("#SCC"));
+                        var Score = ("Nickname: " + Jugadores[c].Alias + " Puntaje: " + puntM.PuntajeF);
+                        swal("Resultado de Búsqueda: ", Score.toString());
                     }
                     /*else {
                                            errorMsg("Juego no encontrado");
